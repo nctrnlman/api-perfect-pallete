@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
       },
       product_price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       category_id: {
@@ -28,7 +28,7 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      productImage: {
+      product_image: {
         type: Sequelize.STRING,
         allowNull: true, // Optional
       },

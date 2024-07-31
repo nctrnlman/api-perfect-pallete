@@ -19,11 +19,29 @@
    npx sequelize-cli db:migrate --config src/config/config.js --migrations-path src/migrations
    ```
 
+   Untuk membuat file migrasi dan membuat tabel di database, gunakan perintah berikut:
+
+   ```bash
+   npx sequelize-cli migration:generate --name create-users --config src/config/config.js --migrations-path src/migrations
+   ```
+
+   Untuk undo file migrasi dan undo tabel di database, gunakan perintah berikut:
+
+   ```bash
+   npx sequelize-cli db:migrate:undo:all --config src/config/config.js --migrations-path src/migrations
+   ```
+
 3. **Seeder**
    Untuk memasukkan data awal ke dalam tabel (seeding), jalankan perintah berikut:
 
    ```bash
    npx sequelize-cli db:seed:all --config src/config/config.js --seeders-path src/seeders
+   ```
+
+   Untuk membuat nama seeder tabel (seeding), jalankan perintah berikut:
+
+   ```bash
+   npx sequelize-cli seed:generate --name demo-users --config src/config/config.js --seeders-path src/seeders
    ```
 
 4. **Rollback Semua Migrasi**

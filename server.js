@@ -5,10 +5,9 @@ const userRoutes = require("./src/routes/userRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const productRoutes = require("./src/routes/productRoutes");
 const categoryRoutes = require("./src/routes/categoryRoutes");
-const cartRoutes = require("./src/routes/cartRoutes"); // Import cart routes
+const cartRoutes = require("./src/routes/cartRoutes");
 const db = require("./src/models");
-const formatResponse = require("./src/middlewares/responseMiddleware");
-const authMiddleware = require("./src/middlewares/authMiddleware");
+const formatResponse = require("./src/utils/responseHandler");
 
 const app = express();
 
@@ -20,10 +19,10 @@ app.use(formatResponse);
 app.use("/api/auth", authRoutes);
 
 // Protected routes (requires authentication)
-app.use("/api/users", authMiddleware, userRoutes);
-app.use("/api/products", authMiddleware, productRoutes);
-app.use("/api/categories", authMiddleware, categoryRoutes);
-app.use("/api/carts", authMiddleware, cartRoutes); // Add cart routes
+app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/carts", cartRoutes); // Add cart routes
 
 // Middleware for handling errors (Optional but recommended)
 app.use((err, req, res, next) => {
