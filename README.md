@@ -603,3 +603,201 @@
       "errors": ["Error message"]
     }
     ```
+
+## Cart Endpoints
+
+### `GET /carts`
+
+- **Description:** Retrieve all carts.
+- **Auth Required:** Yes
+- **Postman Request:**
+  - **Method:** GET
+  - **URL:** `http://localhost:8000/api/carts`
+  - **Headers:**
+    - `Authorization: Bearer <your_token>`
+- **Response:**
+  - **200 OK**
+    ```json
+    {
+      "status": "success",
+      "message": "Carts retrieved successfully",
+      "data": [
+        /* Array of cart objects */
+      ],
+      "errors": null
+    }
+    ```
+  - **500 Internal Server Error**
+    ```json
+    {
+      "status": "error",
+      "message": "Failed to retrieve carts",
+      "data": null,
+      "errors": ["Error message"]
+    }
+    ```
+
+### `GET /carts/:id`
+
+- **Description:** Retrieve a cart by ID.
+- **Auth Required:** Yes
+- **Postman Request:**
+  - **Method:** GET
+  - **URL:** `http://localhost:8000/api/carts/:id`
+  - **Headers:**
+    - `Authorization: Bearer <your_token>`
+- **Response:**
+  - **200 OK**
+    ```json
+    {
+      "status": "success",
+      "message": "Cart retrieved successfully",
+      "data": {
+        /* Cart object */
+      },
+      "errors": null
+    }
+    ```
+  - **404 Not Found**
+    ```json
+    {
+      "status": "error",
+      "message": "Cart not found",
+      "data": null,
+      "errors": null
+    }
+    ```
+  - **500 Internal Server Error**
+    ```json
+    {
+      "status": "error",
+      "message": "Failed to retrieve cart",
+      "data": null,
+      "errors": ["Error message"]
+    }
+    ```
+
+### `POST /carts`
+
+- **Description:** Add an item to the cart. If an item with the same user ID and product ID exists, increment its quantity.
+- **Auth Required:** Yes
+- **Postman Request:**
+  - **Method:** POST
+  - **URL:** `http://localhost:8000/api/carts`
+  - **Headers:**
+    - `Authorization: Bearer <your_token>`
+    - `Content-Type: application/json`
+  - **Body:**
+    ```json
+    {
+      "userId": "integer",
+      "productId": "integer",
+      "qty": "integer"
+    }
+    ```
+- **Response:**
+  - **201 Created**
+    ```json
+    {
+      "status": "success",
+      "message": "Item added to cart successfully",
+      "data": {
+        /* Cart object with updated quantity */
+      },
+      "errors": null
+    }
+    ```
+  - **500 Internal Server Error**
+    ```json
+    {
+      "status": "error",
+      "message": "Failed to add item to cart",
+      "data": null,
+      "errors": ["Error message"]
+    }
+    ```
+
+### `PUT /carts/:id`
+
+- **Description:** Update the quantity of an item in the cart by ID.
+- **Auth Required:** Yes
+- **Postman Request:**
+  - **Method:** PUT
+  - **URL:** `http://localhost:8000/api/carts/:id`
+  - **Headers:**
+    - `Authorization: Bearer <your_token>`
+    - `Content-Type: application/json`
+  - **Body:**
+    ```json
+    {
+      "qty": "integer"
+    }
+    ```
+- **Response:**
+  - **200 OK**
+    ```json
+    {
+      "status": "success",
+      "message": "Cart item updated successfully",
+      "data": {
+        /* Updated cart object */
+      },
+      "errors": null
+    }
+    ```
+  - **404 Not Found**
+    ```json
+    {
+      "status": "error",
+      "message": "Cart item not found",
+      "data": null,
+      "errors": null
+    }
+    ```
+  - **500 Internal Server Error**
+    ```json
+    {
+      "status": "error",
+      "message": "Failed to update cart item",
+      "data": null,
+      "errors": ["Error message"]
+    }
+    ```
+
+### `DELETE /carts/:id`
+
+- **Description:** Remove an item from the cart by ID.
+- **Auth Required:** Yes
+- **Postman Request:**
+  - **Method:** DELETE
+  - **URL:** `http://localhost:8000/api/carts/:id`
+  - **Headers:**
+    - `Authorization: Bearer <your_token>`
+- **Response:**
+  - **200 OK**
+    ```json
+    {
+      "status": "success",
+      "message": "Cart item removed successfully",
+      "data": null,
+      "errors": null
+    }
+    ```
+  - **404 Not Found**
+    ```json
+    {
+      "status": "error",
+      "message": "Cart item not found",
+      "data": null,
+      "errors": null
+    }
+    ```
+  - **500 Internal Server Error**
+    ```json
+    {
+      "status": "error",
+      "message": "Failed to remove cart item",
+      "data": null,
+      "errors": ["Error message"]
+    }
+    ```

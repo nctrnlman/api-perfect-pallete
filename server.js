@@ -5,9 +5,10 @@ const userRoutes = require("./src/routes/userRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const productRoutes = require("./src/routes/productRoutes");
 const categoryRoutes = require("./src/routes/categoryRoutes");
+const cartRoutes = require("./src/routes/cartRoutes"); // Import cart routes
 const db = require("./src/models");
 const formatResponse = require("./src/middlewares/responseMiddleware");
-const authMiddleware = require("./src/middlewares/authMiddleware"); // Pastikan authMiddleware diimpor jika digunakan
+const authMiddleware = require("./src/middlewares/authMiddleware");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", authMiddleware, userRoutes);
 app.use("/api/products", authMiddleware, productRoutes);
 app.use("/api/categories", authMiddleware, categoryRoutes);
+app.use("/api/carts", authMiddleware, cartRoutes); // Add cart routes
 
 // Middleware for handling errors (Optional but recommended)
 app.use((err, req, res, next) => {
