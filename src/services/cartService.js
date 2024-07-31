@@ -14,6 +14,21 @@ const addToCart = async (userId, productId) => {
   return await cartRepository.createCartItem(userId, productId, 1);
 };
 
+const reduceFromCart = async (userId, productId) => {
+  const existingCartItem = await cartRepository.findCartItem(userId, productId);
+  if (existingCartItem) {
+    if (existingCartItem.qty > 1) {
+      existingCartItem.qty -= 1;
+      await existingCartItem.save();
+      return existingCartItem;
+    } else {
+      await existingCartItem.destroy();
+      return null;
+    }
+  }
+  throw new Error("Cart item not found");
+};
+
 const updateCartItem = async (userId, productId, qty) => {
   const existingCartItem = await cartRepository.findCartItem(userId, productId);
   if (existingCartItem) {
@@ -36,6 +51,7 @@ const removeFromCart = async (userId, productId) => {
 module.exports = {
   getCartItems,
   addToCart,
+  reduceFromCart,
   updateCartItem,
   removeFromCart,
 };

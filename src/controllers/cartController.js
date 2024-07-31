@@ -44,6 +44,28 @@ const addToCart = async (req, res) => {
   }
 };
 
+const reduceFromCart = async (req, res) => {
+  try {
+    const { product_id } = req.body; // Get product_id from request body
+    const cartItem = await cartService.reduceFromCart(req.userId, product_id);
+    res.sendResponse(
+      "success",
+      "Cart item quantity reduced successfully",
+      cartItem,
+      null,
+      200
+    );
+  } catch (error) {
+    res.sendResponse(
+      "error",
+      "Failed to reduce cart item quantity",
+      null,
+      [error.message],
+      500
+    );
+  }
+};
+
 const updateCartItem = async (req, res) => {
   try {
     const { product_id, qty } = req.body;
@@ -104,6 +126,7 @@ const removeFromCart = async (req, res) => {
 module.exports = {
   getCartItems,
   addToCart,
+  reduceFromCart,
   updateCartItem,
   removeFromCart,
 };

@@ -819,3 +819,60 @@
       "errors": ["Error message"]
     }
     ```
+
+### `PATCH /reduce`
+
+- **Description:** Reduce the quantity of an item in the cart. If the quantity is reduced to zero, the item is removed from the cart.
+- **Auth Required:** Yes
+- **Request:**
+  - **Method:** PATCH
+  - **URL:** `http://localhost:8000/api/reduce`
+  - **Headers:**
+    - `Authorization: Bearer <your_token>`
+    - `Content-Type: application/json`
+  - **Body:**
+    ```json
+    {
+      "cartItemId": "integer",
+      "reduceBy": "integer"
+    }
+    ```
+- **Responses:**
+  - **200 OK**
+    ```json
+    {
+      "status": "success",
+      "message": "Cart item quantity reduced successfully",
+      "data": {
+        /* Updated cart object or status */
+      },
+      "errors": null
+    }
+    ```
+  - **400 Bad Request**
+    ```json
+    {
+      "status": "error",
+      "message": "Invalid request parameters",
+      "data": null,
+      "errors": ["Error message"]
+    }
+    ```
+  - **404 Not Found**
+    ```json
+    {
+      "status": "error",
+      "message": "Cart item not found",
+      "data": null,
+      "errors": null
+    }
+    ```
+  - **500 Internal Server Error**
+    ```json
+    {
+      "status": "error",
+      "message": "Failed to reduce cart item quantity",
+      "data": null,
+      "errors": ["Error message"]
+    }
+    ```
