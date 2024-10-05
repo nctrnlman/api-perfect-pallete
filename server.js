@@ -5,6 +5,7 @@ const userRoutes = require("./src/routes/userRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const productRoutes = require("./src/routes/productRoutes");
 const packageRoutes = require("./src/routes/packageRoutes");
+const orderRoutes = require("./src/routes/orderRoutes");
 const db = require("./src/models");
 const formatResponse = require("./src/utils/responseHandler");
 
@@ -21,6 +22,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/packages", packageRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Middleware for handling errors (Optional but recommended)
 app.use((err, req, res, next) => {
