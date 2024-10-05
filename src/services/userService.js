@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const userRepository = require("../repositories/userRepository");
 const saltRounds = 10;
 
-const registerUser = async (name, email, password) => {
+const registerUser = async (name, email, password, role) => {
   const existingUser = await userRepository.findUserByEmail(email);
   if (existingUser) {
     throw new Error("User already exists");
@@ -13,6 +13,7 @@ const registerUser = async (name, email, password) => {
     name,
     email,
     password: hashedPassword,
+    role: role,
   });
 };
 

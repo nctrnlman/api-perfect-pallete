@@ -1,19 +1,8 @@
-const db = require("../models");
-const Product = db.Product;
+const productService = require("../services/productService");
 
 const getProducts = async (req, res) => {
   try {
-    const { categoryId } = req.query;
-
-    const products = categoryId
-      ? await Product.findAll({
-          where: { category_id: categoryId },
-          include: ["Category"],
-        })
-      : await Product.findAll({
-          include: ["Category"],
-        });
-
+    const products = await productService.getAllProducts();
     res.sendResponse(
       "success",
       "Products retrieved successfully",
@@ -34,9 +23,7 @@ const getProducts = async (req, res) => {
 
 const getProduct = async (req, res) => {
   try {
-    const product = await Product.findByPk(req.params.id, {
-      include: ["Category"],
-    });
+    const product = await productService.getProductById(req.params.id);
     if (product) {
       res.sendResponse(
         "success",
@@ -61,17 +48,11 @@ const getProduct = async (req, res) => {
 
 const createProduct = async (req, res) => {
   try {
-    const { product_name, product_price, category_id, description } = req.body;
-    const product = await Product.create({
-      product_name,
-      product_price,
-      category_id,
-      description,
-    });
+    const newProduct = await productService.createProduct(req.body);
     res.sendResponse(
       "success",
       "Product created successfully",
-      product,
+      newProduct,
       null,
       201
     );
@@ -89,19 +70,12 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { product_name, product_price, category_id, description } = req.body;
-
-    const product = await Product.findByPk(id);
-    if (product) {
-      product.product_name = product_name || product.product_name;
-      product.product_price = product_price || product.product_price;
-      product.category_id = category_id || product.category_id;
-      product.description = description || product.description;
-      await product.save();
+    const updatedProduct = await productService.updateProduct(id, req.body);
+    if (updatedProduct) {
       res.sendResponse(
         "success",
         "Product updated successfully",
-        product,
+        updatedProduct,
         null,
         200
       );
@@ -121,9 +95,8 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findByPk(req.params.id);
-    if (product) {
-      await product.destroy();
+    const success = await productService.deleteProduct(req.params.id);
+    if (success) {
       res.sendResponse(
         "success",
         "Product deleted successfully",

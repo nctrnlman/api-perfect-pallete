@@ -1,32 +1,29 @@
-const db = require("../models");
-const Product = db.Product;
+const { Product } = require("../models");
 
-const getAllProducts = () => Product.findAll({ include: ["Category"] });
+class ProductRepository {
+  async create(productData) {
+    return await Product.create(productData);
+  }
 
-const getProductById = (id) => Product.findByPk(id, { include: ["Category"] });
+  async findAll() {
+    return await Product.findAll({ include: "package" });
+  }
 
-const createProduct = (data) => Product.create(data);
+  async findById(id) {
+    return await Product.findByPk(id);
+  }
 
-const updateProductById = (id, data) =>
-  Product.findByPk(id).then((product) => {
-    if (product) {
-      return product.update(data);
-    }
-    return null;
-  });
+  async update(id, productData) {
+    return await Product.update(productData, {
+      where: { id },
+    });
+  }
 
-const deleteProductById = (id) =>
-  Product.findByPk(id).then((product) => {
-    if (product) {
-      return product.destroy();
-    }
-    return null;
-  });
+  async delete(id) {
+    return await Product.destroy({
+      where: { id },
+    });
+  }
+}
 
-module.exports = {
-  getAllProducts,
-  getProductById,
-  createProduct,
-  updateProductById,
-  deleteProductById,
-};
+module.exports = new ProductRepository();

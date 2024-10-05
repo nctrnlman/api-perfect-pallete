@@ -1,49 +1,49 @@
+// migrations/create-products.js
 "use strict";
 
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("Products", {
       id: {
-        type: Sequelize.INTEGER,
+        allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-      },
-      product_name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      product_price: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      category_id: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "Categories",
-          key: "id",
-        },
-        onDelete: "CASCADE",
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      image: {
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
-        allowNull: true,
+        allowNull: false,
       },
-      product_image: {
-        type: Sequelize.STRING,
-        allowNull: true, // Optional
+      packageId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Packages",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       createdAt: {
-        type: Sequelize.DATE,
         allowNull: false,
+        type: Sequelize.DATE,
       },
       updatedAt: {
-        type: Sequelize.DATE,
         allowNull: false,
+        type: Sequelize.DATE,
       },
     });
   },
 
-  async down(queryInterface) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("Products");
   },
 };
