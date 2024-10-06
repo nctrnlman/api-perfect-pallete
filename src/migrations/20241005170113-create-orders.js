@@ -38,6 +38,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      shippingName: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      shippingAddress: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

@@ -1,9 +1,12 @@
 const { Order, OrderDetail, Package, User } = require("../models");
 
-const getAllOrders = async (status = null) => {
+const getAllOrders = async (status = null, userId = null) => {
   const whereClause = {};
   if (status) {
     whereClause.status = status;
+  }
+  if (userId) {
+    whereClause.userId = userId;
   }
   return await Order.findAll({
     where: whereClause,

@@ -23,6 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    shippingName: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    shippingAddress: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
   });
 
   Order.associate = (models) => {

@@ -1,8 +1,8 @@
 const orderService = require("../services/orderService");
 
 const getAllOrders = async (req, res) => {
-  const { status } = req.query;
-  const orders = await orderService.getAllOrders(status);
+  const { status, userId } = req.query;
+  const orders = await orderService.getAllOrders(status, userId);
   res.sendResponse("success", "Orders fetched successfully", orders, null, 200);
 };
 

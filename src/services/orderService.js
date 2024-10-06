@@ -1,7 +1,7 @@
 const orderRepository = require("../repositories/orderRepository");
 
-const getAllOrders = async (status) => {
-  return await orderRepository.getAllOrders(status);
+const getAllOrders = async (status, userId) => {
+  return await orderRepository.getAllOrders(status, userId);
 };
 
 const createOrder = async (orderData) => {
