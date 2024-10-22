@@ -23,8 +23,8 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        name: "Veyla",
-        email: "veyla@admin.com",
+        name: "zhara",
+        email: "zhara@admin.com",
         password: hashedPassword,
         role: "admin",
         createdAt: new Date(),
